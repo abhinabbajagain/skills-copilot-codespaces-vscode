@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="page-header room-header">
+    <div class="header-content">
+        <a href="{{ url_for('dashboard') }}" class="back-link">← Back to Dashboard</a>
+        <h1>{{ room.name }}</h1>
+        <p class="prediction-badge">{{ prediction }}</p>
+    </div>
+    <div class="legend">
+        <div class="legend-item"><span class="seat-sample free"></span> Free</div>
+        <div class="legend-item"><span class="seat-sample occupied"></span> Occupied</div>
+    </div>
+</header>
+
+<div class="seat-map-container">
+    <div class="screen-indicator">Front of Room</div>
+    <div class="seat-grid">
+        {% for seat in seats %}
+        <div class="seat {{ seat.current_status }}" data-id="{{ seat.id }}" data-number="{{ seat.seat_number }}"
+            onclick="toggleSeat(this)">
+            {{ seat.seat_number }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

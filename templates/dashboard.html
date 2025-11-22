@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="page-header">
+    <h1>Campus Rooms</h1>
+    <p>Check availability and find your spot.</p>
+</header>
+
+<div class="rooms-grid">
+    {% for room in rooms %}
+    <a href="{{ url_for('room', room_id=room.id) }}" class="room-card">
+        <div class="room-info">
+            <h2>{{ room.name }}</h2>
+            <div class="room-stats">
+                <span class="stat">
+                    <span class="value">{{ room.total - room.occupied }}</span>
+                    <span class="label">Free</span>
+                </span>
+                <span class="stat">
+                    <span class="value">{{ room.total }}</span>
+                    <span class="label">Total</span>
+                </span>
+            </div>
+        </div>
+        <div class="room-prediction">
+            <span
+                class="indicator {{ 'high' if 'High' in room.prediction else 'low' if 'Low' in room.prediction else 'moderate' }}"></span>
+            {{ room.prediction }}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
